@@ -1,0 +1,317 @@
+// vidiface.idl
+//
+// Interface description for Videology custom properties.
+// Tim Roberts
+// Copyright (C) 2007, Videology, Inc.
+
+// IVideology20K1XX implements the 20K/21K-specific properties.
+// IVideologyCMOS implements the 20B1.3-specific properties.
+// IVideologyCommon is the I2C direct access common to both cameras.
+
+import "unknwn.idl";
+import "strmif.idl";
+import "vidprop.h";
+
+[uuid( bc2c164d-36c0-4cdd-8274-8c515cd4e5a9 ),
+ version( 1.0 ),
+ helpstring( "Videology Camera type library" ),
+ control]
+library VideologyInterface
+{
+    [
+        object,
+        uuid( 926ddb16-3c8e-476c-9068-eb4555a99231 ),
+        pointer_default(unique)
+    ]
+    interface IVideology20K1XX : IUnknown
+    {
+        HRESULT GetInterlace( [out, retval] eInterlaceOptions* plInterlace );
+        HRESULT SetInterlace( [in] eInterlaceOptions  lInterlace );
+        HRESULT GetMirror( [out, retval] long* plMirroring );
+        HRESULT SetMirror( [in] long  lMirroring );
+        HRESULT GetSnapshotState( [out, retval] long* plButton );
+        HRESULT GetBacklightCompSize( [out, retval] eBlcSize*  plBlcSize );
+        HRESULT SetBacklightCompSize( [in] eBlcSize lBlcSize );
+        HRESULT GetBacklightCompPosition( [out] short* pwHoriz, [out] short* pwVert );
+        HRESULT SetBacklightCompPosition( [in] short wHoriz, [in] short wVert );
+        HRESULT GetBacklightCompWeight( [out, retval] long* plBlcWeight );
+        HRESULT SetBacklightCompWeight( [in] long lBlcWeight );
+        // 0 .. 127, -1 means "auto"
+        HRESULT GetAGC( [out,retval] long* plGain );
+        HRESULT SetAGC( [in] long lGain );
+        HRESULT GetEdgeEnhancement( [out] short* pwHoriz, [out] short* pwVert  );
+        HRESULT SetEdgeEnhancement( [in] short pwHoriz, [in] short pwVert );
+        HRESULT GetShutterSpeed( [out,retval] eShutterSpeed* plShutter );
+        HRESULT SetShutterSpeed( [in] eShutterSpeed lShutter );
+        HRESULT GetWhiteBalanceMode( [out,retval] eWhiteBalanceMode* plMode );
+        HRESULT SetWhiteBalanceMode( [in] eWhiteBalanceMode lMode );
+        HRESULT GetWB1RedGain( [out,retval] short * pwGain );
+        HRESULT SetWB1RedGain( [in] short wGain );
+        HRESULT GetWB1BlueGain( [out,retval] short * pwGain );
+        HRESULT SetWB1BlueGain( [in] short wGain );
+        HRESULT Reset( );
+        HRESULT GetSnapshotMode( [out,retval] long* lPulse );
+        HRESULT SetSnapshotMode( [in] long lPulse );
+    };
+
+    [
+        object,
+        uuid( 926ddb17-3c8e-476c-9068-eb4555a99231 ),
+        pointer_default(unique)
+    ]
+    interface IVideologyCommon : IUnknown
+    {
+        HRESULT ReadI2C( [in] char SubDevice, [in] unsigned short Register,
+            [out,retval] unsigned short* pData );
+        HRESULT WriteI2C( [in] char SubDevice, [in] unsigned short Register,
+            [in] unsigned short Data );
+        HRESULT GetModel( [out,retval] int *iModel );
+        HRESULT Snapshot();
+        HRESULT SetPower( [in] int iPower );
+        HRESULT GetAltSetting( [in] int* iSetting );
+        HRESULT SetAltSetting( [in] int iSetting );
+        HRESULT IsAvailable( [out,retval] int* iAvailable );
+        HRESULT GetSnapshotState( [out, retval] long* plButton );
+        HRESULT ReadFx2EEPROM( [in] unsigned short Address, [in] unsigned short Size, [out,retval] unsigned char* pData );
+        HRESULT WriteFx2EEPROM( [in] unsigned short Address, [in] unsigned short Size, [out,retval] unsigned char* pData );
+    };
+
+    [
+        object,
+        uuid( 926ddb19-3c8e-476c-9068-eb4555a99231 ),
+        pointer_default(unique)
+    ]
+    interface IVideologyCMOS : IUnknown
+    {
+        // 0 .. 127, -1 means "auto"
+        HRESULT GetAGC( [out,retval] long* plGain );
+        HRESULT SetAGC( [in] long lGain );
+        HRESULT GetMirror( [out, retval] long* plMirroring );
+        HRESULT SetMirror( [in] long  lMirroring );
+        HRESULT GetFlip( [out, retval] long* plFlipping );
+        HRESULT SetFlip( [in] long  lFlipping );
+        HRESULT GetShutterSpeed( [out,retval] eShutterSpeedCMOS* plShutter );
+        HRESULT SetShutterSpeed( [in] eShutterSpeedCMOS lShutter );
+        HRESULT Reset( );
+        HRESULT GetSnapshotMode( [out,retval] long* lOn );
+        HRESULT SetSnapshotMode( [in] long lOn );
+    }
+
+    [
+        object,
+        uuid( 926ddb1a-3c8e-476c-9068-eb4555a99231 ),
+        pointer_default(unique)
+    ]
+    interface IVideology24C13 : IUnknown
+    {
+        HRESULT GetBacklightCompSize( [out, retval] eBlcSize*  plBlcSize );
+        HRESULT SetBacklightCompSize( [in] eBlcSize lBlcSize );
+        HRESULT GetBacklightCompPosition( [out] short* pwHoriz, [out] short* pwVert );
+        HRESULT SetBacklightCompPosition( [in] short wHoriz, [in] short wVert );
+        HRESULT GetBacklightCompWeight( [out, retval] long* plBlcWeight );
+        HRESULT SetBacklightCompWeight( [in] long lBlcWeight );
+        // 0 .. 127, -1 means "auto"
+        HRESULT GetAGC( [out,retval] long* plGain );
+        HRESULT SetAGC( [in] long lGain );
+        HRESULT GetEdgeEnhancement( [out, retval] short* pwLevel );
+        HRESULT SetEdgeEnhancement( [in] short pwLevel );
+        HRESULT GetShutterSpeed( [out,retval] eShutterSpeed24C13* plShutter );
+        HRESULT SetShutterSpeed( [in] eShutterSpeed24C13 lShutter );
+        HRESULT GetWhiteBalanceMode( [out,retval] eWhiteBalance24C13* plMode );
+        HRESULT SetWhiteBalanceMode( [in] eWhiteBalance24C13 lMode );
+        HRESULT GetWBGains( [out] short * pwRed, [out] short * pwBlue );
+        HRESULT SetWBGains( [in] short wRed, [in] short wBlue );
+        HRESULT GetPowerFreq( [out,retval] short * pwFreq );
+        HRESULT SetPowerFreq( [in] short wFreq );
+        HRESULT GetSaturation( [out,retval] short * pwSat );
+        HRESULT SetSaturation( [in] short wSat );
+
+        HRESULT GetMirror( [out, retval] long* plMirroring );
+        HRESULT SetMirror( [in] long  lMirroring );
+        HRESULT GetFlip( [out, retval] long* plFlipping );
+        HRESULT SetFlip( [in] long  lFlipping );
+        HRESULT Reset( );
+        HRESULT GetSnapshotMode( [out,retval] long* lOn );
+        HRESULT SetSnapshotMode( [in] long lOn );
+        HRESULT GetAutoSaturation( [out,retval] long* plSat );
+        HRESULT SetAutoSaturation( [in] long lSat );
+        HRESULT GetGamma( [out,retval] double* plGamma );
+        HRESULT SetGamma( [in] double lGamma );
+        HRESULT GetFlash( [out,retval] long* lOn );
+        HRESULT SetFlash( [in] long lOn );
+
+        // 24CF203 only.
+        HRESULT GetBrightness( [out, retval] long* plBrightness );
+        HRESULT SetBrightness( [in] long lBrightness );
+    }
+
+    [
+        object,
+        uuid( 926ddb1b-3c8e-476c-9068-eb4555a99231 ),
+        pointer_default(unique)
+    ]
+    interface IVideology24C13PanZoom : IUnknown
+    {
+        HRESULT GetResolution( [out] long* plWidth, [out] long* plHeight );
+        HRESULT GetPan( [out] long* plPanX, [out] long* plPanY );
+        HRESULT SetPan( [in] long lPanX, long plPanY );
+    }
+
+    [
+        object,
+        uuid( 926ddb1c-3c8e-476c-9068-eb4555a99231 ),
+        pointer_default(unique)
+    ]
+    interface IVideology60V002 : IUnknown
+    {
+        HRESULT GetYGain( [out,retval] long* plGain );
+        HRESULT SetYGain( [in] long lGain );
+        HRESULT GetCGain( [out, retval] long* plGain );
+        HRESULT SetCGain( [in] long  lGain );
+        HRESULT GetSource( [out, retval] long* plSource );
+        HRESULT SetSource( [in] long  lSource );
+        HRESULT GetFormat( [out, retval] long* plNtscPal );
+        HRESULT SetFormat( [in] long  lNtscPal );
+        HRESULT GetInterlace( [out, retval] eInterlaceOptions* plInterlace );
+        HRESULT SetInterlace( [in] eInterlaceOptions  lInterlace );
+    }
+
+    [
+        object,
+        uuid( 926ddb1d-3c8e-476c-9068-eb4555a99231 ),
+        pointer_default(unique)
+    ]
+    interface IVideology21B45 : IUnknown
+    {
+        HRESULT GetInterlace( [out, retval] eInterlaceOptions* plInterlace );
+        HRESULT SetInterlace( [in] eInterlaceOptions  lInterlace );
+    }
+
+    [
+        object,
+        uuid( 926ddb1e-3c8e-476c-9068-eb4555a99231 ),
+        pointer_default(unique)
+    ]
+    interface IVideology20C205 : IUnknown
+    {
+        HRESULT SendCommand( [in] unsigned char command );
+    }
+
+    [
+        object,
+        uuid( 926ddb1f-3c8e-476c-9068-eb4555a99231 ),
+        pointer_default(unique)
+    ]
+    interface IVideology2xC215 : IUnknown
+    {
+        HRESULT GetInterlace( [out, retval] eInterlaceOptions* plInterlace );
+        HRESULT SetInterlace( [in] eInterlaceOptions  lInterlace );
+        HRESULT GetMirror( [out, retval] long* plMirroring );
+        HRESULT SetMirror( [in] long  lMirroring );
+        HRESULT GetFlip( [out, retval] long* plFlipping );
+        HRESULT SetFlip( [in] long  lFlipping );
+        HRESULT GetBacklightCompSize( [out, retval] eBlcSize*  plBlcSize );
+        HRESULT SetBacklightCompSize( [in] eBlcSize lBlcSize );
+        HRESULT GetBacklightCompPosition( [out] short* pwHoriz, [out] short* pwVert );
+        HRESULT SetBacklightCompPosition( [in] short wHoriz, [in] short wVert );
+        HRESULT GetBacklightCompWeight( [out, retval] long* plBlcWeight );
+        HRESULT SetBacklightCompWeight( [in] long lBlcWeight );
+        // 0 .. 127, -1 means "auto"
+        HRESULT GetAGC( [out,retval] long* plGain );
+        HRESULT SetAGC( [in] long lGain );
+        HRESULT GetEdgeEnhancement( [out] short* pwHoriz, [out] short* pwVert  );
+        HRESULT SetEdgeEnhancement( [in] short pwHoriz, [in] short pwVert );
+        HRESULT GetWhiteBalanceMode( [out,retval] eWhiteBalanceMode* plMode );
+        HRESULT SetWhiteBalanceMode( [in] eWhiteBalanceMode lMode );
+        HRESULT GetWBGains( [out] short * pwRed, [out] short * pwBlue );
+        HRESULT SetWBGains( [in] short wRed, [in] short wBlue );
+        HRESULT GetWideDynamicRange( [out,retval] short * pwMode );
+        HRESULT SetWideDynamicRange( [in] short wMode );
+        HRESULT GetYGain( [out,retval] short * pwGain );
+        HRESULT SetYGain( [in] short wGain );
+        HRESULT GetCGain( [out,retval] short * pwGain );
+        HRESULT SetCGain( [in] short wGain );
+        HRESULT Reset( );
+    };
+
+    [
+        uuid( 35793d0b-f8b0-4a65-aefd-0da48c3e2de5 ),
+        helpstring( "Videology20K1XXPage Class" )
+    ]
+    coclass Videology20K1XXPage
+    {
+        [default] interface IPropertyPage;
+    };
+
+    [
+        uuid( 35793d0c-f8b0-4a65-aefd-0da48c3e2de5 ),
+        helpstring( "VideologyCommonPage Class" )
+    ]
+    coclass VideologyCommonPage
+    {
+        [default] interface IPropertyPage;
+    };
+
+    [
+        uuid( 35793d0d-f8b0-4a65-aefd-0da48c3e2de5 ),
+        helpstring( "Videology24B13Page Class" )
+    ]
+    coclass Videology24B13Page
+    {
+        [default] interface IPropertyPage;
+    };
+
+    [
+        uuid( 35793d0e-f8b0-4a65-aefd-0da48c3e2de5 ),
+        helpstring( "Videology24C13Page Class" )
+    ]
+    coclass Videology24C13Page
+    {
+        [default] interface IPropertyPage;
+    };
+
+    [
+        uuid( 35793d0f-f8b0-4a65-aefd-0da48c3e2de5 ),
+        helpstring( "Videology24C13PanPage Class" )
+    ]
+    coclass Videology24C13PanPage
+    {
+        [default] interface IPropertyPage;
+    };
+
+    [
+        uuid( 35793d10-f8b0-4a65-aefd-0da48c3e2de5 ),
+        helpstring( "Videology60V002Page Class" )
+    ]
+    coclass Videology60V002Page
+    {
+        [default] interface IPropertyPage;
+    };
+
+    [
+        uuid( 35793d11-f8b0-4a65-aefd-0da48c3e2de5 ),
+        helpstring( "Videology21B45Page Class" )
+    ]
+    coclass Videology21B45Page
+    {
+        [default] interface IPropertyPage;
+    };
+
+    [
+        uuid( 35793d12-f8b0-4a65-aefd-0da48c3e2de5 ),
+        helpstring( "Videology20C205Page Class" )
+    ]
+    coclass Videology20C205Page
+    {
+        [default] interface IPropertyPage;
+    };
+
+    [
+        uuid( 35793d13-f8b0-4a65-aefd-0da48c3e2de5 ),
+        helpstring( "Videology2xC215Page Class" )
+    ]
+    coclass Videology2xC215Page
+    {
+        [default] interface IPropertyPage;
+    };
+};

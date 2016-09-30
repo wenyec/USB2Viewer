@@ -1,0 +1,592 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+#include "..\verbuild.h"
+#include "..\include\CustomIds.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "#include ""..\\verbuild.h""\r\n"
+    "#include ""..\\include\\CustomIds.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\VidUSB2.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#include ""afxprint.rc""       // printing/print preview resources\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\FX3.ico"
+129                     ICON                    "res\\VidLogo-8.ico"
+130                     ICON                    "res\\VidLogo-16.ico"
+131                     ICON                    "res\\VidLogo-256.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+IDB_BITMAP_ICON         BITMAP                  "res\\icon.bmp"
+IDB_BITMAP_BTN          BITMAP                  "res\\Button.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT
+    BUTTON      ID_CONTEXT_HELP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "Select a Camera",             ID_CAMEARA_SLECTING
+        MENUITEM SEPARATOR
+        MENUITEM "Set Snap &Folder...",         ID_FILE_SETSNAPIMAGEFOLDER
+        MENUITEM "Take &Snapshot",              ID_CAPTURE_SNAP
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&Options"
+    BEGIN
+        MENUITEM "Camera &Settings...",         ID_OPTIONS_VIDEOCAPTUREFILTER
+        MENUITEM "Capture &Format...",          ID_OPTIONS_VIDEOCAPTUREPIN
+        MENUITEM "&Advanced Options...",        ID_OPTIONS_ADVANCED
+        MENUITEM SEPARATOR
+        MENUITEM "&Restart Graph",              ID_OPTIONS_RESTART
+        MENUITEM "Fac&tory Reset",              ID_OPTIONS_FACTORY
+    END
+    POPUP "&Control"
+    BEGIN
+        MENUITEM "Camera &Control...",          ID_CAMERACONTROL_CAMERACONTROL
+    END
+    POPUP "&Rotation"
+    BEGIN
+        MENUITEM "&No rotation",                ID_OPTIONS_NORMAL, CHECKED
+        MENUITEM "&90° rotation",               ID_OPTIONS_90DEGREES
+        MENUITEM "&180° rotation",              ID_OPTIONS_180DEGREES
+        MENUITEM "&270° rotation",              ID_OPTIONS_270DEGREES
+        MENUITEM "Flip vertically",             ID_OPTIONS_FLIP
+        MENUITEM "Mirror horizontally",         ID_OPTIONS_MIRROR
+    END
+    POPUP "&Pixel Correction"
+    BEGIN
+        MENUITEM "&Automatic",                  ID_PIXCORR_AUTO
+        MENUITEM "&Clear",                      ID_PIXCORR_CLEAR
+        MENUITEM "&Remove Flags",               ID_PIXCORR_REMOVE
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About...",                   ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "^C",           ID_CAMERACONTROL_CAMERACONTROL, ASCII 
+    "^F",           ID_FILE_SETSNAPIMAGEFOLDER, ASCII 
+    "^S",           ID_CAPTURE_SNAP,        ASCII   
+    "^X",           ID_APP_EXIT,            ASCII   
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG 0, 0, 282, 67
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About USB Viewer "
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,14,20,20
+    LTEXT           "Videology USB Viewer Software Version 2.01",IDC_STATIC_VERSION,55,7,193,8,SS_NOPREFIX
+    LTEXT           "Videology Plugin Version 2.01",IDC_STATIC_PLUGIN,55,15,193,8,SS_NOPREFIX
+    LTEXT           "Videology Driver Version 2.01",IDC_STATIC_DRIVER,55,23,193,8,SS_NOPREFIX
+    LTEXT           "Videology Imaging Solutions",IDC_STATIC_COMPANY,55,39,119,8
+    DEFPUSHBUTTON   "OK",IDOK,225,47,50,14,WS_GROUP
+    LTEXT           "Copyright (C) 2016",IDC_STATIC,55,53,100,8
+END
+
+IDD_VIDUSB2_FORM DIALOG 0, 0, 29, 30
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+END
+
+IDD_DIALOG_FEATURECONTROL DIALOGEX 0, 0, 178, 294
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Camera Feature Control"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    LTEXT           "Shutter Mode",IDC_STATIC_SHUTTER,7,9,44,8,NOT WS_VISIBLE
+    COMBOBOX        IDC_COMBO_SHUTTER,59,7,112,172,CBS_DROPDOWN | NOT WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "BLC window size",IDC_STATIC_BLCSIZE,16,73,46,8,NOT WS_VISIBLE
+    COMBOBOX        IDC_COMBO_BLCSIZE,68,70,98,172,CBS_DROPDOWN | NOT WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "BLC window posn   X",IDC_STATIC_WINPOS,16,92,58,8,NOT WS_VISIBLE
+    COMBOBOX        IDC_COMBO_BLCPOS,80,90,30,172,CBS_DROPDOWN | NOT WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Mirror Mode",IDC_CHECK_MIRROR,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,20,121,53,10
+    PUSHBUTTON      "Reset",IDC_BUTTON_RESET,110,119,43,14,NOT WS_VISIBLE
+    GROUPBOX        "",IDC_STATIC_GAINGROUP,7,171,164,39,NOT WS_VISIBLE
+    CONTROL         "Manual Gain",IDC_CHECK_GAIN,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,14,177,53,10
+    EDITTEXT        IDC_EDIT_GAIN,14,190,25,12,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    CONTROL         "Progress1",IDC_PROGRESS1,"msctls_progress32",0x0,14,112,145,15,WS_EX_TRANSPARENT
+    CONTROL         "Edge Enhancement",IDC_CHECK_EDGE,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,14,140,79,10
+    GROUPBOX        "",IDC_STATIC_EDGEGROUP,7,133,164,39,NOT WS_VISIBLE
+    EDITTEXT        IDC_EDIT_EDGE,14,154,25,12,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    CONTROL         "Slider1",IDC_SLIDER_EDGE,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | NOT WS_VISIBLE | WS_TABSTOP,49,154,121,12
+    CONTROL         "BLC",IDC_CHECK_BLC,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,16,37,29,10
+    EDITTEXT        IDC_EDIT_BLCWEIGH,47,53,25,12,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    CONTROL         "Slider1",IDC_SLIDER_BLC,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | NOT WS_VISIBLE | WS_TABSTOP,75,53,90,12
+    GROUPBOX        "",IDC_STATIC_WBMODE,7,210,164,63,NOT WS_VISIBLE
+    LTEXT           "WB Mode",IDC_STATIC_WBM_ELM,14,222,37,8,NOT WS_VISIBLE
+    COMBOBOX        IDC_COMBO_WBM,54,219,113,69,CBS_DROPDOWN | CBS_SORT | NOT WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "RGAIN",IDC_STATIC_RGAIN,13,238,24,8,NOT WS_VISIBLE
+    EDITTEXT        IDC_EDIT_RGAIN,41,238,24,12,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    CONTROL         "Slider1",IDC_SLIDER_REDGAIN,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | NOT WS_VISIBLE | WS_TABSTOP,75,238,95,12
+    LTEXT           "BGAIN",IDC_STATIC_BGAIN,13,255,24,8,NOT WS_VISIBLE
+    EDITTEXT        IDC_EDIT_BGAIN,41,254,24,12,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    CONTROL         "Slider1",IDC_SLIDER_BGAIN,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | NOT WS_VISIBLE | WS_TABSTOP,75,254,95,12
+    LTEXT           "Loading Features...",IDC_STATIC_LOADFEATURES,14,93,62,8
+    CONTROL         "Slider1",IDC_SLIDER_GAIN,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | NOT WS_VISIBLE | WS_TABSTOP,49,190,121,12
+    GROUPBOX        "BLC Control",IDC_STATIC_BLCGROUP,7,21,164,88,NOT WS_VISIBLE
+    CONTROL         "On Screen Display",IDC_CHECK_BLCOSD,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,60,37,75,10
+    LTEXT           "Weight",IDC_STATIC_BLCWEIGHT,16,55,24,8,NOT WS_VISIBLE
+    LTEXT           "Y",IDC_STATIC_BLCPOSY,125,92,8,8
+    COMBOBOX        IDC_COMBO_BLCPOS_Y,136,90,30,172,CBS_DROPDOWN | NOT WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "&Motion stablization",IDC_CHECK_INTERLEAVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,13,276,74,10
+END
+
+IDD_DIALOG_PROGRESS DIALOGEX 0, 0, 206, 14
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP
+EXSTYLE WS_EX_TRANSPARENT
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "Progress1",IDC_PROGRESS1,"msctls_progress32",0x0,0,0,207,16
+END
+
+IDD_DIALOG_ALTSETTING DIALOGEX 0, 0, 206, 90
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Advanced Options"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "Bulk pipe",IDC_RADIO_ALTSET0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,7,36,94,16
+    CONTROL         "Isochronous pipe",IDC_RADIO_ALTSET1,"Button",BS_AUTORADIOBUTTON,7,49,101,16
+    DEFPUSHBUTTON   "OK",IDOK,6,68,50,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDCANCEL,66,68,50,14
+    LTEXT           "The pipe type determines how streaming video is sent through the USB bus.  Note that the bulk option can cause issues in a USB 3 port.",IDC_STATIC,6,4,196,36
+END
+
+IDD_DIALOG_SELECTDEV DIALOGEX 0, 0, 255, 131
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Select Device"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,185,20,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,184,62,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,1,0,161
+ PRODUCTVERSION 2,1,0,161
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "Videology Imaging Solutions"
+            VALUE "FileDescription", "Videology USB Viewer"
+            VALUE "FileVersion", "2.1.161"
+            VALUE "InternalName", "Videology USB Viewer"
+            VALUE "LegalCopyright", "Copyright (C) 2013 Videology, Inc."
+            VALUE "OriginalFilename", "VidUSB2.EXE"
+            VALUE "ProductName", "Videology USB Viewer Application"
+            VALUE "ProductVersion", "2.1.161"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 275
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 50
+    END
+
+    IDD_VIDUSB2_FORM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 22
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 23
+    END
+
+    IDD_DIALOG_FEATURECONTROL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 171
+        VERTGUIDE, 171
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 286
+    END
+
+    IDD_DIALOG_ALTSETTING, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_DIALOG_SELECTDEV, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 248
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 124
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_DIALOG_CAMCONTROL DLGINIT
+BEGIN
+    IDC_COMBO_OB, 0x403, 4, 0
+0x5344, 0x0050, 
+    IDC_COMBO_OB, 0x403, 10, 0
+0x4545, 0x5250, 0x4d4f, 0x5020, 0x0031, 
+    IDC_COMBO_OB, 0x403, 10, 0
+0x4545, 0x5250, 0x4d4f, 0x5020, 0x0032, 
+    IDC_COMBO_OB, 0x403, 10, 0
+0x4545, 0x5250, 0x4d4f, 0x5020, 0x0033, 
+    IDC_COMBO_OB, 0x403, 10, 0
+0x4545, 0x5250, 0x4d4f, 0x5020, 0x0034, 
+    0
+END
+
+IDD_DIALOG_FEATURECONTROL DLGINIT
+BEGIN
+    IDC_COMBO_SHUTTER, 0x403, 13, 0
+0x2f31, 0x3035, 0x6f20, 0x2072, 0x2f31, 0x3036, "\000" 
+    IDC_COMBO_SHUTTER, 0x403, 12, 0
+0x6c46, 0x6369, 0x656b, 0x6c72, 0x7365, 0x0073, 
+    IDC_COMBO_SHUTTER, 0x403, 6, 0
+0x2f31, 0x3532, 0x0030, 
+    IDC_COMBO_SHUTTER, 0x403, 6, 0
+0x2f31, 0x3035, 0x0030, 
+    IDC_COMBO_SHUTTER, 0x403, 7, 0
+0x2f31, 0x3031, 0x3030, "\000" 
+    IDC_COMBO_SHUTTER, 0x403, 7, 0
+0x2f31, 0x3032, 0x3030, "\000" 
+    IDC_COMBO_SHUTTER, 0x403, 7, 0
+0x2f31, 0x3035, 0x3030, "\000" 
+    IDC_COMBO_SHUTTER, 0x403, 8, 0
+0x2f31, 0x3031, 0x3030, 0x0030, 
+    IDC_COMBO_SHUTTER, 0x403, 8, 0
+0x2f31, 0x3032, 0x3030, 0x0030, 
+    IDC_COMBO_SHUTTER, 0x403, 8, 0
+0x2f31, 0x3035, 0x3030, 0x0030, 
+    IDC_COMBO_SHUTTER, 0x403, 9, 0
+0x2f31, 0x3031, 0x3030, 0x3030, "\000" 
+    IDC_COMBO_SHUTTER, 0x403, 17, 0
+0x2f31, 0x3532, 0x6f20, 0x2072, 0x2f31, 0x3033, 0x7320, 0x6365, "\000" 
+    IDC_COMBO_SHUTTER, 0x403, 19, 0
+0x2f31, 0x3231, 0x352e, 0x6f20, 0x2072, 0x2f31, 0x3531, 0x7320, 0x6365, 
+"\000" 
+    IDC_COMBO_SHUTTER, 0x403, 15, 0
+0x2f31, 0x2e36, 0x2035, 0x726f, 0x3120, 0x372f, 0x352e, "\000" 
+    IDC_COMBO_SHUTTER, 0x403, 14, 0
+0x6c45, 0x6365, 0x7274, 0x6369, 0x4920, 0x6972, 0x0073, 
+    IDC_COMBO_SHUTTER, 0x403, 16, 0
+0x6c45, 0x6365, 0x7274, 0x6369, 0x4920, 0x6972, 0x2073, 0x0032, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4831, 0x7820, 0x3120, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4831, 0x7820, 0x3220, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4831, 0x7820, 0x3420, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4831, 0x7820, 0x3820, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4832, 0x7820, 0x3120, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4832, 0x7820, 0x3220, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4832, 0x7820, 0x3420, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4832, 0x7820, 0x3820, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4834, 0x7820, 0x3120, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4834, 0x7820, 0x3220, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4834, 0x7820, 0x3420, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4834, 0x7820, 0x3820, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4838, 0x7820, 0x3120, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4838, 0x7820, 0x3220, 0x0056, 
+    IDC_COMBO_BLCSIZE, 0x403, 8, 0
+0x4838, 0x7820, 0x3420, 0x0056, 
+    IDC_COMBO_BLCPOS, 0x403, 2, 0
+0x0031, 
+    IDC_COMBO_BLCPOS, 0x403, 2, 0
+0x0032, 
+    IDC_COMBO_BLCPOS, 0x403, 2, 0
+0x0033, 
+    IDC_COMBO_BLCPOS, 0x403, 2, 0
+0x0034, 
+    IDC_COMBO_BLCPOS, 0x403, 2, 0
+0x0035, 
+    IDC_COMBO_BLCPOS, 0x403, 2, 0
+0x0036, 
+    IDC_COMBO_BLCPOS, 0x403, 2, 0
+0x0037, 
+    IDC_COMBO_BLCPOS, 0x403, 2, 0
+0x0038, 
+    IDC_COMBO_WBM, 0x403, 4, 0
+0x5741, 0x0042, 
+    IDC_COMBO_WBM, 0x403, 16, 0
+0x6946, 0x6578, 0x2064, 0x4257, 0x4d20, 0x646f, 0x2065, 0x0031, 
+    IDC_COMBO_WBM, 0x403, 16, 0
+0x6946, 0x6578, 0x2064, 0x4257, 0x4d20, 0x646f, 0x2065, 0x0032, 
+    IDC_COMBO_WBM, 0x403, 16, 0
+0x6946, 0x6578, 0x2064, 0x4257, 0x4d20, 0x646f, 0x2065, 0x0033, 
+    IDC_COMBO_BLCPOS_Y, 0x403, 2, 0
+0x0031, 
+    IDC_COMBO_BLCPOS_Y, 0x403, 2, 0
+0x0032, 
+    IDC_COMBO_BLCPOS_Y, 0x403, 2, 0
+0x0033, 
+    IDC_COMBO_BLCPOS_Y, 0x403, 2, 0
+0x0034, 
+    IDC_COMBO_BLCPOS_Y, 0x403, 2, 0
+0x0035, 
+    IDC_COMBO_BLCPOS_Y, 0x403, 2, 0
+0x0036, 
+    IDC_COMBO_BLCPOS_Y, 0x403, 2, 0
+0x0037, 
+    IDC_COMBO_BLCPOS_Y, 0x403, 2, 0
+0x0038, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_HAND1               CURSOR                  "nodrop.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDR_MAINFRAME           "VidUSB2\n\nVidUSB\n\n\nVidUSB2.Document\nVidUSB Document"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_MANUFACTURER        "Videology Imaging Solutions"
+    IDS_VIEWERTITLE         "Videology USB Viewer"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_VIEWERSHORTTITLE    "Videology Viewer"
+    IDS_DRIVERNAME          "vidousb.sys"
+    IDS_PROXYNAME           "VideologyPlugin.ax"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_APP_TITLE       "USB Viewer"
+    AFX_IDS_HELPMODEMESSAGE "Select an object on which to get Help"
+END
+
+STRINGTABLE
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+END
+
+STRINGTABLE
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+    ID_HELP_INDEX           "Opens Help\nHelp Topics"
+    ID_HELP_FINDER          "List Help topics\nHelp Topics"
+    ID_HELP_USING           "Display instructions about how to use help\nHelp"
+    ID_CONTEXT_HELP         "Display help for clicked on buttons, menus and windows\nHelp"
+    ID_HELP                 "Display help for current task or command\nHelp"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_PREVIEW_CLOSE   "Close print preview mode\nCancel Preview"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\VidUSB2.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#include "afxprint.rc"       // printing/print preview resources
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

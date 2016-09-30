@@ -1,0 +1,15 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#	modified:   USB3ViewerPlus.sdf
+#	modified:   USB3ViewerPlus.v12.suo
+#	modified:   ipch/vidusb2-cea023d7/debug/vidusb2-1f4e7628.ipch
+#	modified:   viewer/Debug/USB3ViewerPlus.tlog/CL.read.1.tlog
+#
+# Untracked files:
+#	USB3ViewerPlus.opensdf
+#	viewer/Debug/USB3ViewerPlus.tlog/unsuccessfulbuild
+#
+
