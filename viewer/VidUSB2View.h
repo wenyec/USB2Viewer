@@ -135,7 +135,7 @@ private:
     CButton m_switchBtn;
 
     void    InitializeData();
-    HRESULT InitializeGraph(BOOL boShowCaptureProperties);
+	HRESULT InitializeGraph(BOOL boShowCaptureProperties, BOOL reselectDev);
     HRESULT GetDefaultCapDevice( IBaseFilter ** ppCap, int index);
     HRESULT SetupSampleGrabber();
     HRESULT SetupRender();
@@ -276,6 +276,8 @@ protected:
     afx_msg void OnClearPixelCorrection();
     afx_msg void OnRemoveResults();
     DECLARE_MESSAGE_MAP()
+public:
+	AvailableCam_t CurCam;
 };
 
 #ifndef _DEBUG  // debug version in VidUSB2View.cpp

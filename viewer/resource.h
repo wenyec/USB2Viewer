@@ -146,6 +146,8 @@
 #define IDC_STATIC_DRIVER               1138
 #define IDC_BTN_SWITCH                  1139
 #define IDC_BTN_EXIT                    1140
+#define IDC_LIST1                       1141
+#define IDC_DEVICE_LIST                 1141
 #define ID_TIMER1                       2000
 #define ID_TIMER2                       2001
 #define ID_TIMER3                       2002
@@ -191,7 +193,7 @@
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        150
 #define _APS_NEXT_COMMAND_VALUE         32810
-#define _APS_NEXT_CONTROL_VALUE         1141
+#define _APS_NEXT_CONTROL_VALUE         1142
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

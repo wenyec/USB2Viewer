@@ -320,7 +320,7 @@ void CVidUSB2View::OnInitialUpdate()
 
     InitializeData();
 
-    if(FAILED(InitializeGraph(FALSE)))
+    if(FAILED(InitializeGraph(FALSE, FALSE)))
     {
         m_boDeviceConnected = FALSE;
         PostQuitMessage( 0 );
@@ -405,49 +405,52 @@ void CVidUSB2View::InitializeData()
 // Returns:   error code
 //
 
-HRESULT CVidUSB2View::InitializeGraph(BOOL boShowCaptureProperties)
+HRESULT CVidUSB2View::InitializeGraph(BOOL boShowCaptureProperties, BOOL reselectDev)
 {
     TRACE( __FUNCTION__ "\n" );
     HRESULT hr;
 
     //Create an instance of the filter graph manager.
+	if (!reselectDev){
 
-    m_pGraphBuilder.CoCreateInstance( CLSID_FilterGraph );
-    if( !m_pGraphBuilder )
-    {
-        Error(TEXT("Error initializing DirectShow."));
-        return E_FAIL;
-    }
+		m_pGraphBuilder.CoCreateInstance(CLSID_FilterGraph);
+		if (!m_pGraphBuilder)
+		{
+			Error(TEXT("Error initializing DirectShow."));
+			return E_FAIL;
+		}
 
-    // Create the video capture graph.
+		// Create the video capture graph.
 
-    m_pCaptureGraph.CoCreateInstance( CLSID_CaptureGraphBuilder2 );
-    if( !m_pCaptureGraph )
-    {
-        Error(_T("Error initializing DirectShow."));
-        return E_FAIL;
-    }
+		m_pCaptureGraph.CoCreateInstance(CLSID_CaptureGraphBuilder2);
+		if (!m_pCaptureGraph)
+		{
+			Error(_T("Error initializing DirectShow."));
+			return E_FAIL;
+		}
 
-    // Attach the capture graph to the graph builder.
+		// Attach the capture graph to the graph builder.
 
-    if( !SUCCEEDED(hr=m_pCaptureGraph->SetFiltergraph(m_pGraphBuilder)))
-    {
-        Error(_T("Error initializing DirectShow."));
-        return hr;
-    }
-
+		if (!SUCCEEDED(hr = m_pCaptureGraph->SetFiltergraph(m_pGraphBuilder)))
+		{
+			Error(_T("Error initializing DirectShow."));
+			return hr;
+		}
+	}
     // Find and create the capture device filter
 
     for( int i = 0; ; i++ )  // in case of the failure of running the grapph first, so it's trying for different camera. -- wcheng's note
     {
-        GetDefaultCapDevice(&m_pSrcFilter, i);
-        if( !m_pSrcFilter )
-        {
-            Error(_T("Please check that your camera is plugged in, it was not detected"));
-            CloseWindow();
-            return E_FAIL;
-        }
-
+		if (!reselectDev){
+			GetDefaultCapDevice(&m_pSrcFilter, i);
+			if( !m_pSrcFilter )
+			{
+				Error(_T("Please check that your camera is plugged in, it was not detected"));
+				CloseWindow();
+				return E_FAIL;
+			}
+		}
+#if 0 // remove the videology specific support using the CVidUSB2Prop class. -wcheng
         m_pVidUSB2 = new CVidUSB2Prop( m_pSrcFilter );
 
         if( !m_pVidUSB2->vidInitPort(L"") ) // initialize the Videology USB2 camera. -- wcheng's note 
@@ -461,9 +464,11 @@ HRESULT CVidUSB2View::InitializeGraph(BOOL boShowCaptureProperties)
             m_pVidUSB2 = NULL;
             continue;
         }
-
+#else
+		m_pVidUSB2 = NULL; // setting no m_pVideUSB2 instance
+#endif
         // Attach the device to the graph builder.
-        JIF(m_pGraphBuilder->AddFilter( m_pSrcFilter, L"Cap" ));
+        JIF(m_pGraphBuilder->AddFilter( m_pSrcFilter, L"Cap" )); //the m_pSrcFilter binds the select IMoniker (pM). --wcheng
 
         // Find video config interface of video capture filter.
 
@@ -676,7 +681,8 @@ LRESULT CVidUSB2View::OnActiveMovieError(WPARAM wParam, LPARAM lParam)
 #define ATTR_24C        0x0004
 #define ATTR_SCHICK     0x0008
 #define ATTR_CYPRFX3    0x0010
-
+#define ATTR_MISUMI     0x0020
+#define ATTR_UNKNOW     0x0040
 // USB VID/PID of the cameras we will drive.
 
 struct CameraAttributes {
@@ -717,6 +723,8 @@ const CameraAttributes CameraPids[] = {
 	{ 0x1bbd6261, ATTR_CYPRESS, "" },
 	{ 0x0fbc8117, ATTR_CYPRESS | ATTR_SCHICK, "" },
 	{ 0x1bbd3061, ATTR_CYPRFX3, "" },     // for USB3 Camera -- wcheng
+	{ 0x1bbd2410, ATTR_MISUMI, "" },      // for Misumi Camera -- wcheng
+	{ 0, ATTR_UNKNOW, "" },      // for Other Cameras -- wcheng
 	{ 0, 0, "" }
 };
 
@@ -752,7 +760,7 @@ HRESULT CVidUSB2View::GetDefaultCapDevice( IBaseFilter ** ppCap, int index )
 
     // Enumerate through the list and grab the first video capture device.
 	UINT uIndex = 0;
-    while( 1 )
+    while( 1 )// the loop runs until no device needs to be checked. -- wcheng's note
     {
 		ULONG ulFetched = 0;
         CComPtr< IMoniker > pM;
@@ -801,7 +809,7 @@ HRESULT CVidUSB2View::GetDefaultCapDevice( IBaseFilter ** ppCap, int index )
         FLONG Attributes = 0;
         for( 
             const CameraAttributes* camAttr = CameraPids;
-            camAttr->VidPid;
+            camAttr->VidPid;  //if camAttr->VidPid == 0, the loop is stopped. -- wcheng's note
             camAttr++
         )
         {
@@ -809,18 +817,21 @@ HRESULT CVidUSB2View::GetDefaultCapDevice( IBaseFilter ** ppCap, int index )
             {
                 // This is one of ours.
                 Attributes = camAttr->Attributes;
-                //break;  // let record all available cameras -- wcheng
+                break;  // let record all available cameras -- wcheng
             }
         }
 
         // Have we reached the chosen index?
-
-        if( Attributes && !index-- )
+#if 1 // move following code out of the while loop.
+        if( Attributes && !index-- )  //index ??? -wcheng
         {
-            pM->BindToObject( 0, 0, IID_IBaseFilter, (void**) ppCap );
-            //break;
+			if (!(*ppCap)) //check if a camera binded -- wcheng's note
+				pM->BindToObject( 0, 0, IID_IBaseFilter, (void**) ppCap );
+			CurCam.AvailabeCameraIMo = pM;
+			CurCam.AvailableCameraName = var.bstrVal;
+			break;
         }
-
+#endif
 		/* to get the camera records */
 		AvailableCameraAttr[uIndex].VidPid = VidPid;
 		AvailableCameraAttr[uIndex].Attributes = Attributes;
@@ -833,7 +844,6 @@ HRESULT CVidUSB2View::GetDefaultCapDevice( IBaseFilter ** ppCap, int index )
 
 		AvailableCameraAttr[uIndex].CamName = var.bstrVal;
 		uIndex++;
-
         pM.Release();
         pBag.Release();
     }
@@ -1554,7 +1564,7 @@ HRESULT CVidUSB2View::StartGraph()
 	}
 	else { // non Videology USB2 Camera -- wcheng
         //errorHandler(_T("Camera communication error. You may not be able to control the camera"));
-		errorHandler(_T("It is not the Videology USB3 Camera."));
+		//errorHandler(_T("It is not the Videology USB3 Camera."));
 		m_CamID = CAMID_UNKNOWN; // It's a USB3 camera ID -- wcheng
 		m_boIsUSB3 = TRUE;  // setting the active camera is USB3 -- wcheng
         //return E_FAIL;
@@ -1937,33 +1947,75 @@ void CVidUSB2View::OnOptionsRestart()
 //
 void CVidUSB2View::OnSelectCam(){
 	TRACE(__FUNCTION__ "\n");
-
+	HRESULT hr = S_OK;
+#if 0
 	m_boIsShowDlg = !m_boIsShowDlg;  //trigger the flag record of the dialog openning/closing. -- wcheng
 
 	if (m_boIsShowDlg)
 	{
-		m_pDlgCameraControl.reset();
+		m_pDlgSelectdev.reset();
 	}
 
-	if (!m_pDlgCameraControl.get())
+	if (!m_pDlgSelectdev.get())
 	{
 		bool boPortReady;
-		m_pDlgCameraControl.reset(
-			new CTweetyFeatureControl(m_pVidUSB2, &boPortReady, this)
-			);
-		m_pDlgCameraControl->Create(IDD_DIALOG_FEATURECONTROL);  //IDD_DIALOG_FEATURECONTROL???
+		m_pDlgSelectdev.reset(new CSelectdev(this));
+		m_pDlgSelectdev->Create(IDD_DIALOG_SELECTDEV);  //selec device class ID
 	}
 
-	if (!m_boIsShowDlg)
+	if (1||!m_boIsShowDlg)
 	{
-		m_pDlgCameraControl->ShowWindow(SW_HIDE);
+		m_pDlgSelectdev->ShowWindow(SW_NORMAL);
 	}
 	else
 	{
 		SetViewerPos();
 		SetControDlgPos();
 	}
+#else
+	CSelectdev c_getDevice; // add the get device class --wcheng
+	c_getDevice.pSelDev = &SelDevice;
+	//c_getDevice.visCamID = visID;
+	hr = c_getDevice.DoModal();
+	
+#endif
+	if (1||CurCam.AvailabeCameraIMo != SelDevice.AvailabeCameraIMo){
+		CurCam.AvailabeCameraIMo = SelDevice.AvailabeCameraIMo;
+		CurCam.AvailableCameraName = SelDevice.AvailableCameraName;
+	}
+	StopGraph();
+	TearDownGraph();
 
+	m_pVSC.Release();
+	CComPtr< IMoniker > pM;
+	if (!(m_pSrcFilter)) //check if a camera binded -- wcheng's note
+		pM->BindToObject(0, 0, IID_IBaseFilter, (void**)&m_pSrcFilter);
+	if (!m_pSrcFilter)
+	{
+		Error(_T("Please check that your camera is plugged in, it was not detected"));
+		CloseWindow();
+		return;
+	}
+#if 0
+
+	//CurCam.AvailabeCameraIMo = pM;
+	//CurCam.AvailableCameraName = var.bstrVal;
+	// Attach the device to the graph builder.
+	m_pGraphBuilder->AddFilter(m_pSrcFilter, L"Cap"); //the m_pSrcFilter binds the select IMoniker (pM). --wcheng
+
+	// Find video config interface of video capture filter.
+
+	m_pCaptureGraph->FindInterface(
+		&PIN_CATEGORY_CAPTURE,
+		&MEDIATYPE_Video,
+		m_pSrcFilter,
+		IID_IAMStreamConfig,
+		(void **)&m_pVSC);
+
+	// Customize the configuration.
+	StartGraph();
+#endif
+	InitializeGraph(TRUE, TRUE);
 	//HaltGraph();
 	//RestartGraph();
 }

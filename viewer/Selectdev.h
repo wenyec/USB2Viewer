@@ -1,8 +1,8 @@
 #pragma once
 
 #include "VidUSB2.h"
+#include "afxwin.h"
 
-// Selectdev dialog: create for the selection of the camera -- wcheng
 
 class CSelectdev : public CDialog
 {
@@ -19,4 +19,17 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
+private:
+	HRESULT DeviceNameToMenu();
+public:
+	//CameraAttributes* pAvailableCam;
+	virtual BOOL OnInitDialog();
+	virtual void OnOK();
+	virtual void OnCancel();
+	AvailableCam_t *pSelDev;
+private:
+	int NumCam;
+	CListBox m_DevNameList;
+	//CStringW AvailableCameraName[16];
+	AvailableCam_t AvailableCam[16];
 };

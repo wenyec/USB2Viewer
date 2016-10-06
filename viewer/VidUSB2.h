@@ -14,6 +14,15 @@
 
 #include "resource.h"       // main symbols
 
+static struct AvailableCam_t
+{
+	CStringW AvailableCameraName;
+	IMoniker *AvailabeCameraIMo;
+}AvailableCam;
+
+// Selectdev dialog: create for the selection of the camera -- wcheng
+static AvailableCam_t SelDevice;
+
 class CMyCommandLine :
     public CCommandLineInfo
 {

@@ -4,10 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "strmbase", "dshow\DShow.vcxproj", "{1DA55D15-8E0E-47B8-BC86-B856B0E2C2DA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{715C70F1-15F5-487C-9680-5E2802C9D65B} = {715C70F1-15F5-487C-9680-5E2802C9D65B}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "include", "include\include.vcxproj", "{715C70F1-15F5-487C-9680-5E2802C9D65B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VidUSB2", "viewer\VidUSB2.vcxproj", "{737E811C-66E9-4683-8557-5D593AD45554}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "USB3ViewerPlus", "viewer\VidUSB2.vcxproj", "{737E811C-66E9-4683-8557-5D593AD45554}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1DA55D15-8E0E-47B8-BC86-B856B0E2C2DA} = {1DA55D15-8E0E-47B8-BC86-B856B0E2C2DA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +39,8 @@ Global
 		{1DA55D15-8E0E-47B8-BC86-B856B0E2C2DA}.Debug Unicode|Win32.Build.0 = Debug Unicode|Win32
 		{1DA55D15-8E0E-47B8-BC86-B856B0E2C2DA}.Debug Unicode|x64.ActiveCfg = Debug Unicode|x64
 		{1DA55D15-8E0E-47B8-BC86-B856B0E2C2DA}.Debug Unicode|x64.Build.0 = Debug Unicode|x64
-		{1DA55D15-8E0E-47B8-BC86-B856B0E2C2DA}.Debug|Win32.ActiveCfg = Debug|Win32
-		{1DA55D15-8E0E-47B8-BC86-B856B0E2C2DA}.Debug|Win32.Build.0 = Debug|Win32
+		{1DA55D15-8E0E-47B8-BC86-B856B0E2C2DA}.Debug|Win32.ActiveCfg = Debug Unicode|Win32
+		{1DA55D15-8E0E-47B8-BC86-B856B0E2C2DA}.Debug|Win32.Build.0 = Debug Unicode|Win32
 		{1DA55D15-8E0E-47B8-BC86-B856B0E2C2DA}.Debug|x64.ActiveCfg = Debug|x64
 		{1DA55D15-8E0E-47B8-BC86-B856B0E2C2DA}.Debug|x64.Build.0 = Debug|x64
 		{1DA55D15-8E0E-47B8-BC86-B856B0E2C2DA}.DVD-5|Win32.ActiveCfg = Debug|Win32
