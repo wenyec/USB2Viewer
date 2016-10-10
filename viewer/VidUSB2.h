@@ -17,7 +17,7 @@
 static struct AvailableCam_t
 {
 	CStringW AvailableCameraName;
-	IMoniker *AvailabeCameraIMo;
+	CComPtr< IMoniker > AvailabeCameraIMo;
 }AvailableCam;
 
 // Selectdev dialog: create for the selection of the camera -- wcheng

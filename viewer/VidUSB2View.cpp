@@ -1983,19 +1983,23 @@ void CVidUSB2View::OnSelectCam(){
 		CurCam.AvailabeCameraIMo = SelDevice.AvailabeCameraIMo;
 		CurCam.AvailableCameraName = SelDevice.AvailableCameraName;
 	}
-	StopGraph();
+	//StopGraph();
 	TearDownGraph();
 
 	m_pVSC.Release();
 	CComPtr< IMoniker > pM;
+	pM = (IMoniker*)CurCam.AvailabeCameraIMo;
+	m_pSrcFilter = NULL;
 	if (!(m_pSrcFilter)) //check if a camera binded -- wcheng's note
 		pM->BindToObject(0, 0, IID_IBaseFilter, (void**)&m_pSrcFilter);
 	if (!m_pSrcFilter)
 	{
 		Error(_T("Please check that your camera is plugged in, it was not detected"));
+		//pM->Release();
 		CloseWindow();
 		return;
 	}
+	//pM->Release();
 #if 0
 
 	//CurCam.AvailabeCameraIMo = pM;

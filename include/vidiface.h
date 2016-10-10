@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Thu Oct 06 16:36:35 2016
+/* at Mon Oct 10 14:56:33 2016
  */
 /* Compiler settings for vidiface.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
