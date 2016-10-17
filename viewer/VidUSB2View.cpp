@@ -68,7 +68,7 @@ struct Formats {
     { _T("PNG"), _T(".png"), &ImageFormatPNG }
 };
 
-
+//static CSelectdev &SelDev = CSelectdev::getInstance();
 // BrowseCallbackProc( )
 //
 // Description:  Callback function for SHBrowseForFolder.
@@ -313,8 +313,10 @@ void CVidUSB2View::OnInitialUpdate()
     TRACE( __FUNCTION__ "\n" );
 
     CFormView::OnInitialUpdate();
-    GetParentFrame()->RecalcLayout();
-    ResizeParentToFit();
+    GetParentFrame()->RecalcLayout(); 
+		//GetParentFreame() searches up the parent chain until a CFrameWnd (or derived class) object is found.
+		//RecalcLayout() is the mumber function of a CFrameWnd class. Resize the frame window.
+    ResizeParentToFit(); //the member function of the CScrollView class. it lets the size of your view dictate the size of its frame window.
 
     m_hCursor = GetCursor();
 
@@ -358,7 +360,7 @@ void CVidUSB2View::InitializeData()
 
     GdiplusStartupInput startupInput;
     ULONG_PTR token;
-    GdiplusStartup( &token, &startupInput, NULL );
+    GdiplusStartup( &token, &startupInput, NULL ); //it initializes Windows GDI+
 
     m_strFolderStill = AfxGetApp()->GetProfileString( _T("Folders"), _T("Stills"), _T("C:") );
     if( m_strFolderStill == "C:" )
@@ -1576,7 +1578,7 @@ HRESULT CVidUSB2View::StartGraph()
 
     // We're about to start the graph anyway.
 
-    static bool bFirst = true;
+    //static bool bFirst = true;
     if( bFirst )
     {
         OneTimeStartup();
@@ -1973,33 +1975,33 @@ void CVidUSB2View::OnSelectCam(){
 		SetControDlgPos();
 	}
 #else
-	CSelectdev c_getDevice; // add the get device class --wcheng
-	c_getDevice.pSelDev = &SelDevice;
+	//CSelectdev c_getDevice; // add the get device class --wcheng
+	//c_getDevice.pSelDev = &SelDevice;
 	//c_getDevice.visCamID = visID;
-	hr = c_getDevice.DoModal();
-	
+	hr = m_pDlgSelectdev.DoModal();
 #endif
 	if (1||CurCam.AvailabeCameraIMo != SelDevice.AvailabeCameraIMo){
 		CurCam.AvailabeCameraIMo = SelDevice.AvailabeCameraIMo;
 		CurCam.AvailableCameraName = SelDevice.AvailableCameraName;
 	}
-	//StopGraph();
+	bFirst = TRUE;// set firs start flag -wcheng
 	TearDownGraph();
+	StopGraph();
 
 	m_pVSC.Release();
 	CComPtr< IMoniker > pM;
-	pM = (IMoniker*)CurCam.AvailabeCameraIMo;
+	pM = m_pDlgSelectdev.SelDevIn.AvailabeCameraIMo;//AvailableCam[(UINT32)m_DevNameList.GetItemData(sel)].AvailabeCameraIMo; //(IMoniker*)CurCam.AvailabeCameraIMo;
 	m_pSrcFilter = NULL;
 	if (!(m_pSrcFilter)) //check if a camera binded -- wcheng's note
 		pM->BindToObject(0, 0, IID_IBaseFilter, (void**)&m_pSrcFilter);
 	if (!m_pSrcFilter)
 	{
 		Error(_T("Please check that your camera is plugged in, it was not detected"));
-		//pM->Release();
+		pM.Release();
 		CloseWindow();
 		return;
 	}
-	//pM->Release();
+	pM.Release();
 #if 0
 
 	//CurCam.AvailabeCameraIMo = pM;
@@ -2019,7 +2021,7 @@ void CVidUSB2View::OnSelectCam(){
 	// Customize the configuration.
 	StartGraph();
 #endif
-	InitializeGraph(TRUE, TRUE);
+	InitializeGraph(FALSE, TRUE);
 	//HaltGraph();
 	//RestartGraph();
 }

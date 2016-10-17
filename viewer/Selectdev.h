@@ -11,6 +11,7 @@ class CSelectdev : public CDialog
 public:
 	CSelectdev(CWnd* pParent = NULL);   // standard constructor
 	virtual ~CSelectdev();
+	static CSelectdev &getInstance();
 
 // Dialog Data
 	enum { IDD = IDD_DIALOG_SELECTDEV };
@@ -26,7 +27,8 @@ public:
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
 	virtual void OnCancel();
-	AvailableCam_t *pSelDev;
+	AvailableCam_t SelDevIn;
+	int uIndex = 0;
 private:
 	int NumCam;
 	CListBox m_DevNameList;

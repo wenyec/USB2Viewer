@@ -161,7 +161,7 @@ private:
 
     std::auto_ptr<CTweetyFeatureControl> m_pDlgCameraControl;
 	std::auto_ptr<CVISUsb3FeatureControl> m_pDlgVISUsb3CameraControl;  // the controls for the Videology USB3 Camera -- wcheng
-	auto_ptr<CSelectdev> m_pDlgSelectdev;  //the controls for selecting camera -- wcheng
+	CSelectdev m_pDlgSelectdev;  //the controls for selecting camera -- wcheng
 
     // State for the pixel correction logic.
 
@@ -177,6 +177,7 @@ private:
     long    m_pixcorrFrameCount;
     std::vector<long> m_pixcorrSum;
     int     m_pixcorrState;
+	bool	bFirst = TRUE;
 
     void    DrawResults();
     void    Fix1Pixel( int x, int y, BYTE loc );

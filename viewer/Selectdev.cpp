@@ -32,6 +32,10 @@ void CSelectdev::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CSelectdev, CDialog)
 END_MESSAGE_MAP()
 
+static CSelectdev &getInstance(){
+	static CSelectdev instance;
+	return instance;
+}
 
 // Selectdev message handlers
 
@@ -202,8 +206,9 @@ void CSelectdev::OnOK()
 
 	if (sel != LB_ERR)
 	{
-		pSelDev->AvailabeCameraIMo = AvailableCam[(UINT32)m_DevNameList.GetItemData(sel)].AvailabeCameraIMo;
-		pSelDev->AvailableCameraName = AvailableCam[(UINT32)m_DevNameList.GetItemData(sel)].AvailableCameraName;
+		SelDevIn.AvailabeCameraIMo = AvailableCam[(UINT32)m_DevNameList.GetItemData(sel)].AvailabeCameraIMo;
+		SelDevIn.AvailableCameraName = AvailableCam[(UINT32)m_DevNameList.GetItemData(sel)].AvailableCameraName;
+		uIndex = sel;
 #if 0
 		int j;
 		for (j = 0; j < NumCam; j++){
@@ -218,8 +223,8 @@ void CSelectdev::OnOK()
 #endif
 	}
 	else{
-		pSelDev->AvailabeCameraIMo = AvailableCam[(UINT32)m_DevNameList.GetItemData(0)].AvailabeCameraIMo;
-		pSelDev->AvailableCameraName = AvailableCam[(UINT32)m_DevNameList.GetItemData(0)].AvailableCameraName;
+		SelDevIn.AvailabeCameraIMo = AvailableCam[(UINT32)m_DevNameList.GetItemData(0)].AvailabeCameraIMo;
+		SelDevIn.AvailableCameraName = AvailableCam[(UINT32)m_DevNameList.GetItemData(0)].AvailableCameraName;
 #
 	}
 

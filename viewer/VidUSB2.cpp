@@ -55,7 +55,7 @@ BOOL CVidUSB2App::InitInstance()
     CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
     AfxEnableControlContainer();
 
-    Custom.Register( theApp.m_hInstance );
+    Custom.Register( theApp.m_hInstance ); //register the Videology DLL??? -wcheng
     m_strBrand = Custom.Get( IDS_VIEWERTITLE );
 
     // Change the registry key under which our settings are stored.
@@ -76,7 +76,7 @@ BOOL CVidUSB2App::InitInstance()
     AddDocTemplate(pDocTemplate);
 
     // Parse command line.
-    ParseCommandLine(gCmdInfo);
+    ParseCommandLine(gCmdInfo); //is it for debugging??? -wcheng
     ProcessShellCommand(gCmdInfo);
     gCmdInfo.Debug();
 
